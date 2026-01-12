@@ -82,52 +82,54 @@
             <h2>Database Design</h2>
 
             <h3>Key Tables</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Table</th>
-                        <th>Purpose</th>
-                        <th>Key Relationships</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>User</code></td>
-                        <td>Customer accounts</td>
-                        <td>One-to-many with Bookings</td>
-                    </tr>
-                    <tr>
-                        <td><code>Hotel</code></td>
-                        <td>Hotel listings</td>
-                        <td>One-to-many with Rooms</td>
-                    </tr>
-                    <tr>
-                        <td><code>Room</code></td>
-                        <td>Room inventory</td>
-                        <td>Many-to-many with Bookings (availability)</td>
-                    </tr>
-                    <tr>
-                        <td><code>Flight</code></td>
-                        <td>Flight schedules</td>
-                        <td>One-to-many with Seats</td>
-                    </tr>
-                    <tr>
-                        <td><code>Booking</code></td>
-                        <td>Reservation records</td>
-                        <td>Polymorphic (hotel/flight/package)</td>
-                    </tr>
-                    <tr>
-                        <td><code>Package</code></td>
-                        <td>Combined deals</td>
-                        <td>References Hotel + Flight</td>
-                    </tr>
-                    <tr>
-                        <td><code>Payment</code></td>
-                        <td>Transaction records</td>
-                        <td>One-to-one with Booking</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Purpose</th>
+                            <th>Key Relationships</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>User</code></td>
+                            <td>Customer accounts</td>
+                            <td>One-to-many with Bookings</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hotel</code></td>
+                            <td>Hotel listings</td>
+                            <td>One-to-many with Rooms</td>
+                        </tr>
+                        <tr>
+                            <td><code>Room</code></td>
+                            <td>Room inventory</td>
+                            <td>Many-to-many with Bookings (availability)</td>
+                        </tr>
+                        <tr>
+                            <td><code>Flight</code></td>
+                            <td>Flight schedules</td>
+                            <td>One-to-many with Seats</td>
+                        </tr>
+                        <tr>
+                            <td><code>Booking</code></td>
+                            <td>Reservation records</td>
+                            <td>Polymorphic (hotel/flight/package)</td>
+                        </tr>
+                        <tr>
+                            <td><code>Package</code></td>
+                            <td>Combined deals</td>
+                            <td>References Hotel + Flight</td>
+                        </tr>
+                        <tr>
+                            <td><code>Payment</code></td>
+                            <td>Transaction records</td>
+                            <td>One-to-one with Booking</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <section>

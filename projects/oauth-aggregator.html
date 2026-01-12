@@ -67,47 +67,51 @@
 
             <!-- OAuth Flow Diagram -->
             <h3>OAuth 2.0 Authentication Flow</h3>
-            <div class="mermaid">
-                sequenceDiagram
-                participant User
-                participant Frontend
-                participant Backend
-                participant Platform as Platform (Meta/Google)
+            <div class="table-container">
+                <div class="mermaid">
+                    sequenceDiagram
+                    participant User
+                    participant Frontend
+                    participant Backend
+                    participant Platform as Platform (Meta/Google)
 
-                User->>Frontend: Click "Connect Platform"
-                Frontend->>Backend: GET /auth/{platform}/authorize
-                Backend->>Platform: Redirect to OAuth consent
-                Platform->>User: Show permission screen
-                User->>Platform: Grant permissions
-                Platform->>Backend: Callback with auth code
-                Backend->>Platform: Exchange code for tokens
-                Platform->>Backend: Return access + refresh tokens
-                Backend->>Backend: Encrypt & store tokens
-                Backend->>Backend: Trigger 365-day initial sync
-                Backend->>Frontend: Return success
-                Frontend->>User: Show "Connected" status
+                    User->>Frontend: Click "Connect Platform"
+                    Frontend->>Backend: GET /auth/{platform}/authorize
+                    Backend->>Platform: Redirect to OAuth consent
+                    Platform->>User: Show permission screen
+                    User->>Platform: Grant permissions
+                    Platform->>Backend: Callback with auth code
+                    Backend->>Platform: Exchange code for tokens
+                    Platform->>Backend: Return access + refresh tokens
+                    Backend->>Backend: Encrypt & store tokens
+                    Backend->>Backend: Trigger 365-day initial sync
+                    Backend->>Frontend: Return success
+                    Frontend->>User: Show "Connected" status
+                </div>
             </div>
 
             <!-- Two-Tier Sync Architecture -->
             <h3>Two-Tier Data Synchronization</h3>
-            <div class="mermaid">
-                flowchart TD
-                A[Account Connected] --> B{Initial Sync Complete?}
-                B -->|No| C[Initial Sync: 365 Days]
-                B -->|Yes| D[Hourly Incremental Sync]
+            <div class="table-container">
+                <div class="mermaid">
+                    flowchart TD
+                    A[Account Connected] --> B{Initial Sync Complete?}
+                    B -->|No| C[Initial Sync: 365 Days]
+                    B -->|Yes| D[Hourly Incremental Sync]
 
-                C --> E[Fetch Historical Data]
-                E --> F[Store in Platform Tables]
-                F --> G[Normalize to Unified Metrics]
-                G --> H[Mark initialSyncComplete = true]
+                    C --> E[Fetch Historical Data]
+                    E --> F[Store in Platform Tables]
+                    F --> G[Normalize to Unified Metrics]
+                    G --> H[Mark initialSyncComplete = true]
 
-                D --> I[Fetch Since Last Sync]
-                I --> J[Store New Data]
-                J --> K[Normalize New Metrics]
-                K --> L[Update lastSyncAt]
+                    D --> I[Fetch Since Last Sync]
+                    I --> J[Store New Data]
+                    J --> K[Normalize New Metrics]
+                    K --> L[Update lastSyncAt]
 
-                H --> M[Data Available in API]
-                L --> M
+                    H --> M[Data Available in API]
+                    L --> M
+                </div>
             </div>
 
             <h3>1. Authentication Layer</h3>
@@ -185,128 +189,134 @@
             <p>Core tables designed for scalability and data integrity:</p>
 
             <h3>Authentication & Account Management</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Table</th>
-                        <th>Purpose</th>
-                        <th>Key Fields</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>User</code></td>
-                        <td>User accounts</td>
-                        <td>id, email, passwordHash, role</td>
-                    </tr>
-                    <tr>
-                        <td><code>Client</code></td>
-                        <td>Business entities</td>
-                        <td>id, name, userId, createdAt</td>
-                    </tr>
-                    <tr>
-                        <td><code>MetaAccount</code></td>
-                        <td>Meta OAuth tokens</td>
-                        <td>id, userId, accessTokenEnc, refreshTokenEnc, tokenExpiry, pageId</td>
-                    </tr>
-                    <tr>
-                        <td><code>GoogleAccount</code></td>
-                        <td>Google OAuth tokens</td>
-                        <td>id, userId, accessTokenEnc, refreshTokenEnc, tokenExpiry, scope</td>
-                    </tr>
-                    <tr>
-                        <td><code>ShopifyAccount</code></td>
-                        <td>Shopify credentials</td>
-                        <td>id, userId, shopDomain, accessTokenEnc</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Purpose</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>User</code></td>
+                            <td>User accounts</td>
+                            <td>id, email, passwordHash, role</td>
+                        </tr>
+                        <tr>
+                            <td><code>Client</code></td>
+                            <td>Business entities</td>
+                            <td>id, name, userId, createdAt</td>
+                        </tr>
+                        <tr>
+                            <td><code>MetaAccount</code></td>
+                            <td>Meta OAuth tokens</td>
+                            <td>id, userId, accessTokenEnc, refreshTokenEnc, tokenExpiry, pageId</td>
+                        </tr>
+                        <tr>
+                            <td><code>GoogleAccount</code></td>
+                            <td>Google OAuth tokens</td>
+                            <td>id, userId, accessTokenEnc, refreshTokenEnc, tokenExpiry, scope</td>
+                        </tr>
+                        <tr>
+                            <td><code>ShopifyAccount</code></td>
+                            <td>Shopify credentials</td>
+                            <td>id, userId, shopDomain, accessTokenEnc</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3>Platform-Specific Data Storage</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Table</th>
-                        <th>Purpose</th>
-                        <th>Key Fields</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>MetaInsightsDaily</code></td>
-                        <td>Facebook/Instagram metrics</td>
-                        <td>accountId, date, impressions, reach, engagement</td>
-                    </tr>
-                    <tr>
-                        <td><code>YouTubeAnalytics</code></td>
-                        <td>YouTube channel/video stats</td>
-                        <td>accountId, date, views, likes, subscribers, videoId</td>
-                    </tr>
-                    <tr>
-                        <td><code>GoogleSearchConsoleDaily</code></td>
-                        <td>Search performance data</td>
-                        <td>accountId, date, clicks, impressions, ctr, position</td>
-                    </tr>
-                    <tr>
-                        <td><code>ShopifyOrder</code></td>
-                        <td>E-commerce orders</td>
-                        <td>accountId, orderId, totalPrice, orderDate, status</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Purpose</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>MetaInsightsDaily</code></td>
+                            <td>Facebook/Instagram metrics</td>
+                            <td>accountId, date, impressions, reach, engagement</td>
+                        </tr>
+                        <tr>
+                            <td><code>YouTubeAnalytics</code></td>
+                            <td>YouTube channel/video stats</td>
+                            <td>accountId, date, views, likes, subscribers, videoId</td>
+                        </tr>
+                        <tr>
+                            <td><code>GoogleSearchConsoleDaily</code></td>
+                            <td>Search performance data</td>
+                            <td>accountId, date, clicks, impressions, ctr, position</td>
+                        </tr>
+                        <tr>
+                            <td><code>ShopifyOrder</code></td>
+                            <td>E-commerce orders</td>
+                            <td>accountId, orderId, totalPrice, orderDate, status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3>Unified Metrics (Normalized Data)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>id</code></td>
-                        <td>Int</td>
-                        <td>Primary key</td>
-                    </tr>
-                    <tr>
-                        <td><code>accountId</code></td>
-                        <td>String</td>
-                        <td>Platform account identifier</td>
-                    </tr>
-                    <tr>
-                        <td><code>platform</code></td>
-                        <td>Enum</td>
-                        <td>FACEBOOK, YOUTUBE, GOOGLE_ADS, etc.</td>
-                    </tr>
-                    <tr>
-                        <td><code>metricKey</code></td>
-                        <td>String</td>
-                        <td>Standardized metric name (impressions, clicks, revenue)</td>
-                    </tr>
-                    <tr>
-                        <td><code>metricValue</code></td>
-                        <td>Float</td>
-                        <td>Numeric value</td>
-                    </tr>
-                    <tr>
-                        <td><code>date</code></td>
-                        <td>DateTime</td>
-                        <td>Metric date</td>
-                    </tr>
-                    <tr>
-                        <td><code>dimensionType</code></td>
-                        <td>String?</td>
-                        <td>Optional dimension (channel, video, campaign)</td>
-                    </tr>
-                    <tr>
-                        <td><code>dimensionValue</code></td>
-                        <td>String?</td>
-                        <td>Dimension identifier</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>id</code></td>
+                            <td>Int</td>
+                            <td>Primary key</td>
+                        </tr>
+                        <tr>
+                            <td><code>accountId</code></td>
+                            <td>String</td>
+                            <td>Platform account identifier</td>
+                        </tr>
+                        <tr>
+                            <td><code>platform</code></td>
+                            <td>Enum</td>
+                            <td>FACEBOOK, YOUTUBE, GOOGLE_ADS, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><code>metricKey</code></td>
+                            <td>String</td>
+                            <td>Standardized metric name (impressions, clicks, revenue)</td>
+                        </tr>
+                        <tr>
+                            <td><code>metricValue</code></td>
+                            <td>Float</td>
+                            <td>Numeric value</td>
+                        </tr>
+                        <tr>
+                            <td><code>date</code></td>
+                            <td>DateTime</td>
+                            <td>Metric date</td>
+                        </tr>
+                        <tr>
+                            <td><code>dimensionType</code></td>
+                            <td>String?</td>
+                            <td>Optional dimension (channel, video, campaign)</td>
+                        </tr>
+                        <tr>
+                            <td><code>dimensionValue</code></td>
+                            <td>String?</td>
+                            <td>Dimension identifier</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- API Endpoints -->

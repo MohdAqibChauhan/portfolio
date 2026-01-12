@@ -67,17 +67,19 @@
 
         <section>
             <h2>System Architecture</h2>
-            <div class="mermaid">
-                graph TD
-                A[User] -->|Subscribe| B[Subscription Service]
-                B --> C[Payment Gateway]
-                C -->|Success| D[Activate Tier]
-                A -->|Make Prediction| E[Access Control]
-                E -->|Check Tier| F{Has Access?}
-                F -->|Yes| G[Process Prediction]
-                F -->|No| H[Upgrade Prompt]
-                A -->|Refer Friend| I[Referral Service]
-                I -->|Milestone| J[Bonus Rewards]
+            <div class="table-container">
+                <div class="mermaid">
+                    graph TD
+                    A[User] -->|Subscribe| B[Subscription Service]
+                    B --> C[Payment Gateway]
+                    C -->|Success| D[Activate Tier]
+                    A -->|Make Prediction| E[Access Control]
+                    E -->|Check Tier| F{Has Access?}
+                    F -->|Yes| G[Process Prediction]
+                    F -->|No| H[Upgrade Prompt]
+                    A -->|Refer Friend| I[Referral Service]
+                    I -->|Milestone| J[Bonus Rewards]
+                </div>
             </div>
         </section>
 

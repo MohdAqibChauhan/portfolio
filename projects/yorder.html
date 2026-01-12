@@ -65,16 +65,18 @@
 
         <section>
             <h2>System Architecture</h2>
-            <div class="mermaid">
-                graph TD
-                A[User] -->|Subscribe| B[Subscription Service]
-                B --> C[Payment Gateway]
-                C -->|Success| D[Activate Benefits]
-                D -->|Free Delivery| E[Order Service]
-                A -->|Refer Friend| F[Referral Service]
-                F -->|Signup Complete| G[Reward Both Users]
-                A -->|Apply Coupon| H[Coupon Engine]
-                H -->|Validate| I[Apply Discount]
+            <div class="table-container">
+                <div class="mermaid">
+                    graph TD
+                    A[User] -->|Subscribe| B[Subscription Service]
+                    B --> C[Payment Gateway]
+                    C -->|Success| D[Activate Benefits]
+                    D -->|Free Delivery| E[Order Service]
+                    A -->|Refer Friend| F[Referral Service]
+                    F -->|Signup Complete| G[Reward Both Users]
+                    A -->|Apply Coupon| H[Coupon Engine]
+                    H -->|Validate| I[Apply Discount]
+                </div>
             </div>
         </section>
 

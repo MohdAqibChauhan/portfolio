@@ -68,21 +68,23 @@
 
         <section>
             <h2>System Architecture</h2>
-            <div class="mermaid">
-                graph TD
-                A[User] -->|Search| B[Search Service]
-                B --> C{Search Type}
-                C -->|Text| D[Elasticsearch]
-                C -->|Location| E[MongoDB Geo]
-                D --> F[Merge Results]
-                E --> F
-                F --> G[Vendor List]
-                A -->|Book| H[Booking Service]
-                H -->|Check| I[Calendar]
-                I -->|Available| J[Create Booking]
-                A -->|Review| K[Review Service]
-                K -->|Verify| L[Booking Check]
-                L -->|Approved| M[Publish Review]
+            <div class="table-container">
+                <div class="mermaid">
+                    graph TD
+                    A[User] -->|Search| B[Search Service]
+                    B --> C{Search Type}
+                    C -->|Text| D[Elasticsearch]
+                    C -->|Location| E[MongoDB Geo]
+                    D --> F[Merge Results]
+                    E --> F
+                    F --> G[Vendor List]
+                    A -->|Book| H[Booking Service]
+                    H -->|Check| I[Calendar]
+                    I -->|Available| J[Create Booking]
+                    A -->|Review| K[Review Service]
+                    K -->|Verify| L[Booking Check]
+                    L -->|Approved| M[Publish Review]
+                </div>
             </div>
         </section>
 

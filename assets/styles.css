@@ -526,13 +526,25 @@ pre code {
 }
 
 /* Tables */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-container table {
+    margin: 0;
+    border: none;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2rem 0;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid var(--border);
 }
 
 th,
@@ -754,7 +766,18 @@ footer {
 
     .nav .container {
         flex-direction: column;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .nav-links {
         gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 0.875rem;
     }
 
     .grid {
@@ -771,6 +794,40 @@ footer {
 
     .hero {
         padding: 3rem 0 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.875rem;
+    }
+
+    .subtitle {
+        font-size: 1.125rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.8125rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-right: 0 !important;
+        margin-bottom: 0.75rem;
+        text-align: center;
+    }
+
+    section {
+        margin: 2.5rem 0;
+    }
+
+    .project-header {
+        flex-direction: column;
+        gap: 0.75rem;
     }
 }
 
