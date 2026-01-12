@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Backend engineering projects by Mohd Aqib Chauhan - System design, APIs, and scalable architectures">
+    <title>Projects - Mohd Aqib Chauhan</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-brand">Portfolio</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <a href="assets/Mohd_Aqib_Chauhan_Resume.pdf" download
+                    style="color: var(--primary); font-weight: 600;">Resume</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Backend Projects</h1>
+            <p class="subtitle">System design, API development, and engineering solutions</p>
+        </section>
+
+        <!-- Project 1: OAuth Aggregator -->
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h2 class="project-title">GreyCat Analytics</h2>
+                    <div class="project-meta">
+                        <span class="badge badge-primary">Full Stack Ownership</span>
+                        <span class="badge badge-secondary">In Development</span>
+                    </div>
+                </div>
+            </div>
+            <p>Multi-platform OAuth integration system with automated data synchronization, normalization, and unified
+                metrics API. <strong style="color: var(--primary);">8 platform integrations • 365-day historical sync •
+                    Automated token management</strong></p>
+
+            <h4>Key Backend Features</h4>
+            <ul class="feature-list">
+                <li><strong>OAuth Token Management</strong> - Automated refresh, encryption, and lifecycle handling</li>
+                <li><strong>Two-Tier Sync System</strong> - Initial 365-day backfill + hourly incremental syncs</li>
+                <li><strong>Data Normalization</strong> - Platform-agnostic unified metrics schema</li>
+                <li><strong>Background Jobs</strong> - Cron-based sync orchestration with failure recovery</li>
+                <li><strong>Multi-Platform APIs</strong> - Meta, Google, YouTube, Shopify, WooCommerce integrations</li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+                <a href="projects/oauth-aggregator.html" class="btn">View Full Case Study →</a>
+            </div>
+        </div>
+
+        <!-- Project 2: Varun Travellers -->
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h2 class="project-title">Varun Travellers - Travel Booking Platform</h2>
+                    <div class="project-meta">
+                        <span class="badge badge-primary">Full Backend</span>
+                        <span class="badge badge-secondary">Backend Project</span>
+                    </div>
+                </div>
+            </div>
+            <p>Complete backend system for travel booking platform supporting hotel reservations, flight bookings, and
+                combined package deals. Built entire API layer, database design, and booking workflow logic.</p>
+
+            <h4>Backend Responsibilities</h4>
+            <ul class="feature-list">
+                <li><strong>Booking Engine</strong> - Hotel, flight, and package booking workflows</li>
+                <li><strong>Inventory Management</strong> - Real-time availability tracking</li>
+                <li><strong>Payment Integration</strong> - Secure payment processing and transaction handling</li>
+                <li><strong>User Management</strong> - Authentication, profiles, and booking history</li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+                <a href="projects/varun-travellers.html" class="btn">View Case Study →</a>
+            </div>
+        </div>
+
+        <!-- Project 3: Vendor Marketplace -->
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h2 class="project-title">Finders Events</h2>
+                    <div class="project-meta">
+                        <span class="badge badge-primary">Full Backend</span>
+                        <span class="badge badge-secondary">Professional Project</span>
+                    </div>
+                </div>
+            </div>
+            <p>Marketplace platform enabling vendors to list services (furniture, DJs, event services, etc.) and
+                customers to browse and book. Complete backend architecture with multi-category support and booking
+                management.</p>
+
+            <h4>Backend Responsibilities</h4>
+            <ul class="feature-list">
+                <li><strong>Vendor Management</strong> - Multi-category service listings and inventory</li>
+                <li><strong>Booking System</strong> - Availability calendar, reservations, and confirmations</li>
+                <li><strong>Search & Filtering</strong> - Category-based search with advanced filters</li>
+                <li><strong>Rating & Reviews</strong> - Customer feedback and vendor reputation system</li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+                <a href="projects/vendor-marketplace.html" class="btn">View Case Study →</a>
+            </div>
+        </div>
+
+        <!-- Project 4: Yorder -->
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h2 class="project-title">Yorder - Quick Commerce Platform</h2>
+                    <div class="project-meta">
+                        <span class="badge badge-success">Live on Play Store</span>
+                        <span class="badge badge-warning">Backend Contributions</span>
+                    </div>
+                </div>
+            </div>
+            <p>Quick commerce application for rapid delivery. Contributed key backend modules
+                including subscription model, referral system, and coupon engine.</p>
+
+            <h4>My Backend Contributions</h4>
+            <ul class="feature-list">
+                <li><strong>Subscription Model</strong> - Recurring payment handling and tier management</li>
+                <li><strong>Referral System</strong> - User referral tracking and reward distribution</li>
+                <li><strong>Coupon Engine</strong> - Discount codes, validation, and usage tracking</li>
+                <li><strong>Feature Development</strong> - Various senior-requested backend enhancements</li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+                <a href="projects/yorder.html" class="btn">View Contributions →</a>
+            </div>
+        </div>
+
+        <!-- Project 5: Lava -->
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h2 class="project-title">Lava - Stock Prediction Platform</h2>
+                    <div class="project-meta">
+                        <span class="badge badge-success">Live Application</span>
+                        <span class="badge badge-warning">Backend Contributions</span>
+                    </div>
+                </div>
+            </div>
+            <p>Stock market prediction application providing trading insights and analysis. Contributed backend modules
+                for monetization and user engagement features.</p>
+
+            <h4>My Backend Contributions</h4>
+            <ul class="feature-list">
+                <li><strong>Subscription Model</strong> - Premium tier access and payment processing</li>
+                <li><strong>Referral System</strong> - User acquisition and reward mechanisms</li>
+                <li><strong>Coupon System</strong> - Promotional codes and discount management</li>
+                <li><strong>Feature Enhancements</strong> - Backend improvements per senior requirements</li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+                <a href="projects/lava.html" class="btn">View Contributions →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Mohd Aqib Chauhan. Backend Engineer.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const toggleBtn = document.querySelector('.theme-toggle');
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Load saved theme
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const toggleBtn = document.querySelector('.theme-toggle');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (toggleBtn) {
+                toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            }
+        })();
+
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+
+</html>

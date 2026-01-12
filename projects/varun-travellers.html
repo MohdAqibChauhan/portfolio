@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Varun Travellers - Travel booking platform backend by Mohd Aqib Chauhan">
+    <title>Varun Travellers - Mohd Aqib Chauhan</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // Load theme immediately to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-brand">Mohd Aqib Chauhan</div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Varun Travellers</h1>
+            <p class="subtitle">Complete backend for travel booking platform with hotel, flight, and package booking</p>
+            <div class="project-meta" style="justify-content: center; margin-top: 1rem;">
+                <span class="badge badge-primary">Full Backend Ownership</span>
+                <span class="badge badge-secondary">Backend Project</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Problem Statement</h2>
+            <p>Travel agencies need a comprehensive booking system that handles:</p>
+            <ul class="feature-list">
+                <li>Multiple booking types (hotels, flights, combined packages)</li>
+                <li>Real-time inventory management</li>
+                <li>Payment processing and transaction tracking</li>
+                <li>User authentication and booking history</li>
+                <li>Admin controls for managing listings</li>
+            </ul>
+            <p><strong>My Role:</strong> Built the entire backend API layer, database architecture, and booking workflow
+                logic from scratch.</p>
+        </section>
+
+        <section>
+            <h2>System Architecture</h2>
+
+            <h3>Core Modules</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>User Management</h4>
+                    <p>Authentication, profiles, roles (customer/admin)</p>
+                </div>
+                <div class="card">
+                    <h4>Inventory System</h4>
+                    <p>Hotel rooms, flight seats, availability tracking</p>
+                </div>
+                <div class="card">
+                    <h4>Booking Engine</h4>
+                    <p>Reservation workflow, confirmation, cancellation</p>
+                </div>
+                <div class="card">
+                    <h4>Payment Gateway</h4>
+                    <p>Secure payment processing, refunds</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Database Design</h2>
+
+            <h3>Key Tables</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Purpose</th>
+                        <th>Key Relationships</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>User</code></td>
+                        <td>Customer accounts</td>
+                        <td>One-to-many with Bookings</td>
+                    </tr>
+                    <tr>
+                        <td><code>Hotel</code></td>
+                        <td>Hotel listings</td>
+                        <td>One-to-many with Rooms</td>
+                    </tr>
+                    <tr>
+                        <td><code>Room</code></td>
+                        <td>Room inventory</td>
+                        <td>Many-to-many with Bookings (availability)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Flight</code></td>
+                        <td>Flight schedules</td>
+                        <td>One-to-many with Seats</td>
+                    </tr>
+                    <tr>
+                        <td><code>Booking</code></td>
+                        <td>Reservation records</td>
+                        <td>Polymorphic (hotel/flight/package)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Package</code></td>
+                        <td>Combined deals</td>
+                        <td>References Hotel + Flight</td>
+                    </tr>
+                    <tr>
+                        <td><code>Payment</code></td>
+                        <td>Transaction records</td>
+                        <td>One-to-one with Booking</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>API Endpoints</h2>
+
+            <h3>Authentication</h3>
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/auth/register</span>
+                </div>
+                <p>User registration with email verification</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/auth/login</span>
+                </div>
+                <p>JWT-based authentication</p>
+            </div>
+
+            <h3>Hotel Booking</h3>
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/hotels</span>
+                </div>
+                <p>Search hotels with filters (location, price, dates, amenities)</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/hotels/:id/availability</span>
+                </div>
+                <p>Check room availability for date range</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/bookings/hotel</span>
+                </div>
+                <p>Create hotel reservation with payment</p>
+            </div>
+
+            <h3>Flight Booking</h3>
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/flights/search</span>
+                </div>
+                <p>Search flights (origin, destination, date, class)</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/bookings/flight</span>
+                </div>
+                <p>Book flight with passenger details</p>
+            </div>
+
+            <h3>Package Deals</h3>
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/packages</span>
+                </div>
+                <p>List available hotel + flight packages</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/bookings/package</span>
+                </div>
+                <p>Book complete package (hotel + flight)</p>
+            </div>
+
+            <h3>Booking Management</h3>
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/bookings/user/:userId</span>
+                </div>
+                <p>User's booking history with status</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-put">PUT</span>
+                    <span class="api-path">/bookings/:id/cancel</span>
+                </div>
+                <p>Cancel booking and process refund</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Key Backend Features</h2>
+
+            <h3>1. Inventory Management</h3>
+            <ul class="feature-list">
+                <li><strong>Real-time Availability:</strong> Tracks room/seat inventory with concurrent booking handling
+                </li>
+                <li><strong>Overbooking Prevention:</strong> Database-level constraints prevent double bookings</li>
+                <li><strong>Dynamic Pricing:</strong> Support for seasonal rates and demand-based pricing</li>
+            </ul>
+
+            <h3>2. Booking Workflow</h3>
+            <ul class="feature-list">
+                <li><strong>Multi-step Process:</strong> Search → Select → Payment → Confirmation</li>
+                <li><strong>Temporary Holds:</strong> 15-minute reservation lock during payment</li>
+                <li><strong>Confirmation System:</strong> Email notifications with booking details</li>
+            </ul>
+
+            <h3>3. Payment Integration</h3>
+            <ul class="feature-list">
+                <li><strong>Secure Processing:</strong> PCI-compliant payment gateway integration</li>
+                <li><strong>Transaction Tracking:</strong> Complete audit trail of all payments</li>
+                <li><strong>Refund Handling:</strong> Automated refund processing for cancellations</li>
+            </ul>
+
+            <h3>4. Admin Controls</h3>
+            <ul class="feature-list">
+                <li><strong>Inventory Management:</strong> Add/edit hotels, flights, packages</li>
+                <li><strong>Booking Oversight:</strong> View all bookings, manual cancellations</li>
+                <li><strong>Reporting:</strong> Revenue reports, occupancy rates, popular routes</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Engineering Decisions</h2>
+
+            <h3>Handling Concurrent Bookings</h3>
+            <p><strong>Challenge:</strong> Multiple users booking the same room simultaneously</p>
+            <p><strong>Solution:</strong> Database transactions with row-level locking</p>
+            <pre><code>BEGIN TRANSACTION;
+SELECT * FROM rooms WHERE id = ? FOR UPDATE;
+-- Check availability
+-- Create booking
+COMMIT;</code></pre>
+
+            <h3>Package Pricing Logic</h3>
+            <p><strong>Decision:</strong> Calculate package price dynamically vs. store fixed price</p>
+            <p><strong>Chosen:</strong> Dynamic calculation based on current hotel + flight prices</p>
+            <p><strong>Rationale:</strong> Ensures packages always reflect current pricing, no stale data</p>
+
+            <h3>Cancellation Policy</h3>
+            <p><strong>Implementation:</strong> Configurable cancellation windows per booking type</p>
+            <ul class="feature-list">
+                <li>Free cancellation up to 48 hours before check-in/flight</li>
+                <li>50% refund 24-48 hours before</li>
+                <li>No refund within 24 hours</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>API Documentation</h2>
+            <p>Complete API documentation available in Apidog with:</p>
+            <ul class="feature-list">
+                <li>All endpoint specifications</li>
+                <li>Request/response schemas</li>
+                <li>Authentication flows</li>
+                <li>Error codes and handling</li>
+                <li>Example requests for testing</li>
+            </ul>
+        </section>
+
+
+        <section class="cta">
+            <h2>Technical Highlights</h2>
+            <p>This project demonstrates:</p>
+            <ul class="feature-list">
+                <li>Complex relational database design</li>
+                <li>Transaction management and data integrity</li>
+                <li>Payment gateway integration</li>
+                <li>Concurrent request handling</li>
+                <li>RESTful API design patterns</li>
+            </ul>
+            <a href="../projects.html" class="btn btn-secondary" style="margin-left: 0.5rem;">← Back to Projects</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Mohd Aqib Chauhan. Backend Engineer.</p>
+        </div>
+    </footer>
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            // Update button emoji
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</body>
+
+</html>

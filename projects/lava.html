@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lava - Backend contributions to cricket prediction platform by Mohd Aqib Chauhan">
+    <title>Lava - Mohd Aqib Chauhan</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // Load theme immediately to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-brand">Mohd Aqib Chauhan</div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Lava - Cricket Prediction Platform</h1>
+            <p class="subtitle">Backend contributions to sports prediction application</p>
+            <div>
+                <span class="badge badge-primary">Production</span>
+                <span class="badge badge-secondary">Node.js</span>
+                <span class="badge badge-secondary">Express</span>
+                <span class="badge badge-secondary">PostgreSQL</span>
+                <span class="badge badge-secondary">Razorpay</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Overview</h2>
+            <p>Cricket prediction platform with tiered subscription model. Built premium subscription system, referral
+                program, and coupon engine to monetize features and drive user growth.</p>
+        </section>
+
+        <section>
+            <h2>My Contributions</h2>
+            <ul class="feature-list">
+                <li><strong>Tiered Subscription Model:</strong> 4 tiers (Free, Silver, Gold, Platinum) with feature
+                    gating based on subscription level</li>
+                <li><strong>Access Control:</strong> Real-time validation of tier permissions for prediction features
+                    with daily usage limits</li>
+                <li><strong>Referral System:</strong> User acquisition through referral rewards with milestone bonuses
+                    (5, 10, 25 referrals)</li>
+                <li><strong>Coupon System:</strong> Promotional codes for subscription discounts with tier-specific
+                    applicability</li>
+                <li><strong>Automated Renewals:</strong> Subscription renewal with payment retry logic and email
+                    notifications</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>System Architecture</h2>
+            <div class="mermaid">
+                graph TD
+                A[User] -->|Subscribe| B[Subscription Service]
+                B --> C[Payment Gateway]
+                C -->|Success| D[Activate Tier]
+                A -->|Make Prediction| E[Access Control]
+                E -->|Check Tier| F{Has Access?}
+                F -->|Yes| G[Process Prediction]
+                F -->|No| H[Upgrade Prompt]
+                A -->|Refer Friend| I[Referral Service]
+                I -->|Milestone| J[Bonus Rewards]
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Technical Highlights</h2>
+            <ul class="feature-list">
+                <li>Role-based access control (RBAC) with feature flags</li>
+                <li>Tiered subscription model with graceful downgrades</li>
+                <li>Payment gateway integration with retry mechanism</li>
+                <li>Referral milestone tracking and reward distribution</li>
+                <li>Coupon validation with tier-specific rules</li>
+            </ul>
+            <a href="../projects.html" class="btn btn-secondary" style="margin-left: 0.5rem;">← Back to Projects</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Mohd Aqib Chauhan. Backend Engineer.</p>
+        </div>
+    </footer>
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            // Update button emoji
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+        });
+    </script>
+</body>
+
+</html>

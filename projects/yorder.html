@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yorder - Backend contributions to quick commerce platform by Mohd Aqib Chauhan">
+    <title>Yorder - Mohd Aqib Chauhan</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // Load theme immediately to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-brand">Mohd Aqib Chauhan</div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Yorder - Quick Commerce Platform</h1>
+            <p class="subtitle">Backend contributions to rapid delivery application</p>
+            <div>
+                <span class="badge badge-primary">Production</span>
+                <span class="badge badge-secondary">Node.js</span>
+                <span class="badge badge-secondary">Express</span>
+                <span class="badge badge-secondary">MySQL</span>
+                <span class="badge badge-secondary">Razorpay</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Overview</h2>
+            <p>Quick commerce platform for grocery and essentials delivery. Built monetization features including
+                subscription model, referral system, and coupon engine to drive user acquisition and revenue.</p>
+        </section>
+
+        <section>
+            <h2>My Contributions</h2>
+            <ul class="feature-list">
+                <li><strong>Subscription Model:</strong> Premium membership with recurring billing, grace periods, and
+                    benefit tracking (free delivery, exclusive deals)</li>
+                <li><strong>Referral System:</strong> User acquisition through referral rewards with milestone bonuses
+                    and fraud prevention</li>
+                <li><strong>Coupon Engine:</strong> Flexible discount validation with expiry checks, usage limits, and
+                    minimum order requirements</li>
+                <li><strong>Automated Renewals:</strong> Cron job for subscription renewals with retry logic and email
+                    notifications</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>System Architecture</h2>
+            <div class="mermaid">
+                graph TD
+                A[User] -->|Subscribe| B[Subscription Service]
+                B --> C[Payment Gateway]
+                C -->|Success| D[Activate Benefits]
+                D -->|Free Delivery| E[Order Service]
+                A -->|Refer Friend| F[Referral Service]
+                F -->|Signup Complete| G[Reward Both Users]
+                A -->|Apply Coupon| H[Coupon Engine]
+                H -->|Validate| I[Apply Discount]
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Technical Highlights</h2>
+            <ul class="feature-list">
+                <li>Recurring payment processing with Razorpay integration</li>
+                <li>Automated subscription renewal with retry mechanism</li>
+                <li>Referral chain tracking for multi-level rewards</li>
+                <li>Coupon validation rules engine</li>
+                <li>Transaction management for data integrity</li>
+            </ul>
+            <a href="../projects.html" class="btn btn-secondary" style="margin-left: 0.5rem;">← Back to Projects</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Mohd Aqib Chauhan. Backend Engineer.</p>
+        </div>
+    </footer>
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            // Update button emoji
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+        });
+    </script>
+</body>
+
+</html>

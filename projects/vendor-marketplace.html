@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finders Events - Multi-category vendor marketplace by Mohd Aqib Chauhan">
+    <title>Finders Events - Mohd Aqib Chauhan</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // Load theme immediately to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-brand">Mohd Aqib Chauhan</div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Finders Events - Vendor Marketplace</h1>
+            <p class="subtitle">Multi-category service booking platform</p>
+            <div>
+                <span class="badge badge-primary">Production</span>
+                <span class="badge badge-secondary">Node.js</span>
+                <span class="badge badge-secondary">Express</span>
+                <span class="badge badge-secondary">MongoDB</span>
+                <span class="badge badge-secondary">Elasticsearch</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Overview</h2>
+            <p>Multi-category vendor marketplace connecting customers with service providers (photographers, caterers,
+                venues, decorators). Built search, booking, and review systems for seamless vendor discovery and
+                engagement.</p>
+        </section>
+
+        <section>
+            <h2>Key Features</h2>
+            <ul class="feature-list">
+                <li><strong>Geospatial Search:</strong> Location-based vendor discovery with distance filtering using
+                    MongoDB geospatial indexes</li>
+                <li><strong>Multi-Filter Search:</strong> Complex search with category, price, rating, and availability
+                    filters using Elasticsearch</li>
+                <li><strong>Booking System:</strong> Real-time availability management with calendar integration and
+                    conflict prevention</li>
+                <li><strong>Review & Rating:</strong> Verified review system with spam detection and vendor ranking
+                    algorithm</li>
+                <li><strong>Vendor Management:</strong> Profile management, portfolio uploads, and availability calendar
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>System Architecture</h2>
+            <div class="mermaid">
+                graph TD
+                A[User] -->|Search| B[Search Service]
+                B --> C{Search Type}
+                C -->|Text| D[Elasticsearch]
+                C -->|Location| E[MongoDB Geo]
+                D --> F[Merge Results]
+                E --> F
+                F --> G[Vendor List]
+                A -->|Book| H[Booking Service]
+                H -->|Check| I[Calendar]
+                I -->|Available| J[Create Booking]
+                A -->|Review| K[Review Service]
+                K -->|Verify| L[Booking Check]
+                L -->|Approved| M[Publish Review]
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Technical Highlights</h2>
+            <ul class="feature-list">
+                <li>Hybrid search architecture (Elasticsearch + MongoDB geospatial)</li>
+                <li>Real-time availability management with calendar integration</li>
+                <li>Verified review system with spam prevention</li>
+                <li>Vendor ranking algorithm based on rating and response time</li>
+                <li>Multi-category flexible schema design</li>
+            </ul>
+            <a href="../projects.html" class="btn btn-secondary" style="margin-left: 0.5rem;">← Back to Projects</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Mohd Aqib Chauhan. Backend Engineer.</p>
+        </div>
+    </footer>
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            // Update button emoji
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+        });
+    </script>
+</body>
+
+</html>

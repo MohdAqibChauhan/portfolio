@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="GreyCat Analytics - Multi-platform integration system with automated sync and unified metrics">
+    <title>GreyCat Analytics - Mohd Aqib Chauhan</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // Load theme immediately to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-brand">Mohd Aqib Chauhan</div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Header -->
+        <section class="hero">
+            <h1>GreyCat Analytics</h1>
+            <p class="subtitle">Multi-platform OAuth integration with automated data synchronization and unified metrics
+                API</p>
+            <div class="project-meta" style="justify-content: center; margin-top: 1rem;">
+                <span class="badge badge-primary">Full Stack Ownership</span>
+                <span class="badge badge-secondary">In Development</span>
+            </div>
+        </section>
+
+        <!-- Problem Statement -->
+        <section>
+            <h2>Problem Statement</h2>
+            <p>Businesses use multiple platforms (Meta, Google, YouTube, Shopify, etc.) to track performance, but each
+                platform:</p>
+            <ul class="feature-list">
+                <li>Has different authentication mechanisms (OAuth flows, API keys, tokens)</li>
+                <li>Provides data in different formats and structures</li>
+                <li>Requires manual data collection and aggregation</li>
+                <li>Has varying rate limits and sync requirements</li>
+                <li>Needs constant token refresh and lifecycle management</li>
+            </ul>
+            <p><strong>The Goal:</strong> Build a backend system that automatically connects to these platforms, manages
+                authentication, syncs data on a schedule, normalizes it into a unified schema, and exposes clean APIs
+                for consumption.</p>
+        </section>
+
+        <!-- System Architecture -->
+        <section class="architecture">
+            <h2>System Architecture</h2>
+            <p>The system is built with three core layers:</p>
+
+            <!-- OAuth Flow Diagram -->
+            <h3>OAuth 2.0 Authentication Flow</h3>
+            <div class="mermaid">
+                sequenceDiagram
+                participant User
+                participant Frontend
+                participant Backend
+                participant Platform as Platform (Meta/Google)
+
+                User->>Frontend: Click "Connect Platform"
+                Frontend->>Backend: GET /auth/{platform}/authorize
+                Backend->>Platform: Redirect to OAuth consent
+                Platform->>User: Show permission screen
+                User->>Platform: Grant permissions
+                Platform->>Backend: Callback with auth code
+                Backend->>Platform: Exchange code for tokens
+                Platform->>Backend: Return access + refresh tokens
+                Backend->>Backend: Encrypt & store tokens
+                Backend->>Backend: Trigger 365-day initial sync
+                Backend->>Frontend: Return success
+                Frontend->>User: Show "Connected" status
+            </div>
+
+            <!-- Two-Tier Sync Architecture -->
+            <h3>Two-Tier Data Synchronization</h3>
+            <div class="mermaid">
+                flowchart TD
+                A[Account Connected] --> B{Initial Sync Complete?}
+                B -->|No| C[Initial Sync: 365 Days]
+                B -->|Yes| D[Hourly Incremental Sync]
+
+                C --> E[Fetch Historical Data]
+                E --> F[Store in Platform Tables]
+                F --> G[Normalize to Unified Metrics]
+                G --> H[Mark initialSyncComplete = true]
+
+                D --> I[Fetch Since Last Sync]
+                I --> J[Store New Data]
+                J --> K[Normalize New Metrics]
+                K --> L[Update lastSyncAt]
+
+                H --> M[Data Available in API]
+                L --> M
+            </div>
+
+            <h3>1. Authentication Layer</h3>
+            <ul class="feature-list">
+                <li><strong>OAuth Flow Handling</strong> - Implements OAuth 2.0 for each platform</li>
+                <li><strong>Token Storage</strong> - Encrypted access/refresh tokens in database</li>
+                <li><strong>Automatic Refresh</strong> - Background job refreshes tokens before expiry</li>
+                <li><strong>Multi-Account Support</strong> - Users can connect multiple accounts per platform</li>
+            </ul>
+
+            <h3>2. Data Sync Layer</h3>
+            <ul class="feature-list">
+                <li><strong>Two-Tier Sync Strategy</strong>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li><em>Initial Sync:</em> Fetches 365 days of historical data on first connection</li>
+                        <li><em>Incremental Sync:</em> Hourly cron job fetches only new data since last sync</li>
+                    </ul>
+                </li>
+                <li><strong>Platform-Specific Sync Jobs</strong> - Each integration has dedicated sync logic</li>
+                <li><strong>Failure Recovery</strong> - Retry mechanisms and error logging for failed syncs</li>
+                <li><strong>Progress Tracking</strong> - Monitors sync status and completion</li>
+            </ul>
+
+            <h3>3. Normalization & API Layer</h3>
+            <ul class="feature-list">
+                <li><strong>Data Normalization</strong> - Converts platform-specific data to unified schema</li>
+                <li><strong>Unified Metrics</strong> - Single table for all metrics across platforms</li>
+                <li><strong>RESTful APIs</strong> - Clean endpoints for querying aggregated data</li>
+                <li><strong>Filtering & Pagination</strong> - Support for date ranges, platforms, and metric types</li>
+            </ul>
+        </section>
+
+        <!-- Supported Platforms -->
+        <section>
+            <h2>Supported Platforms (8 Integrations)</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4>Meta (Facebook/Instagram)</h4>
+                    <p>Page insights, post metrics, audience data</p>
+                </div>
+                <div class="card">
+                    <h4>Meta Ads</h4>
+                    <p>Ad campaigns, spend, impressions, conversions</p>
+                </div>
+                <div class="card">
+                    <h4>Google Analytics</h4>
+                    <p>Website traffic, user behavior, conversions</p>
+                </div>
+                <div class="card">
+                    <h4>Google Search Console</h4>
+                    <p>Search performance, clicks, impressions, CTR</p>
+                </div>
+                <div class="card">
+                    <h4>YouTube</h4>
+                    <p>Channel analytics, video performance, engagement</p>
+                </div>
+                <div class="card">
+                    <h4>Shopify</h4>
+                    <p>Orders, products, revenue, inventory</p>
+                </div>
+                <div class="card">
+                    <h4>WooCommerce</h4>
+                    <p>E-commerce metrics, sales, customer data</p>
+                </div>
+                <div class="card">
+                    <h4>LinkedIn</h4>
+                    <p>Company page metrics, post engagement</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Database Design -->
+        <section>
+            <h2>Database Schema</h2>
+            <p>Core tables designed for scalability and data integrity:</p>
+
+            <h3>Authentication & Account Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Purpose</th>
+                        <th>Key Fields</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>User</code></td>
+                        <td>User accounts</td>
+                        <td>id, email, passwordHash, role</td>
+                    </tr>
+                    <tr>
+                        <td><code>Client</code></td>
+                        <td>Business entities</td>
+                        <td>id, name, userId, createdAt</td>
+                    </tr>
+                    <tr>
+                        <td><code>MetaAccount</code></td>
+                        <td>Meta OAuth tokens</td>
+                        <td>id, userId, accessTokenEnc, refreshTokenEnc, tokenExpiry, pageId</td>
+                    </tr>
+                    <tr>
+                        <td><code>GoogleAccount</code></td>
+                        <td>Google OAuth tokens</td>
+                        <td>id, userId, accessTokenEnc, refreshTokenEnc, tokenExpiry, scope</td>
+                    </tr>
+                    <tr>
+                        <td><code>ShopifyAccount</code></td>
+                        <td>Shopify credentials</td>
+                        <td>id, userId, shopDomain, accessTokenEnc</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Platform-Specific Data Storage</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Purpose</th>
+                        <th>Key Fields</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>MetaInsightsDaily</code></td>
+                        <td>Facebook/Instagram metrics</td>
+                        <td>accountId, date, impressions, reach, engagement</td>
+                    </tr>
+                    <tr>
+                        <td><code>YouTubeAnalytics</code></td>
+                        <td>YouTube channel/video stats</td>
+                        <td>accountId, date, views, likes, subscribers, videoId</td>
+                    </tr>
+                    <tr>
+                        <td><code>GoogleSearchConsoleDaily</code></td>
+                        <td>Search performance data</td>
+                        <td>accountId, date, clicks, impressions, ctr, position</td>
+                    </tr>
+                    <tr>
+                        <td><code>ShopifyOrder</code></td>
+                        <td>E-commerce orders</td>
+                        <td>accountId, orderId, totalPrice, orderDate, status</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Unified Metrics (Normalized Data)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>id</code></td>
+                        <td>Int</td>
+                        <td>Primary key</td>
+                    </tr>
+                    <tr>
+                        <td><code>accountId</code></td>
+                        <td>String</td>
+                        <td>Platform account identifier</td>
+                    </tr>
+                    <tr>
+                        <td><code>platform</code></td>
+                        <td>Enum</td>
+                        <td>FACEBOOK, YOUTUBE, GOOGLE_ADS, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><code>metricKey</code></td>
+                        <td>String</td>
+                        <td>Standardized metric name (impressions, clicks, revenue)</td>
+                    </tr>
+                    <tr>
+                        <td><code>metricValue</code></td>
+                        <td>Float</td>
+                        <td>Numeric value</td>
+                    </tr>
+                    <tr>
+                        <td><code>date</code></td>
+                        <td>DateTime</td>
+                        <td>Metric date</td>
+                    </tr>
+                    <tr>
+                        <td><code>dimensionType</code></td>
+                        <td>String?</td>
+                        <td>Optional dimension (channel, video, campaign)</td>
+                    </tr>
+                    <tr>
+                        <td><code>dimensionValue</code></td>
+                        <td>String?</td>
+                        <td>Dimension identifier</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- API Endpoints -->
+        <section>
+            <h2>API Endpoints</h2>
+
+            <h3>Authentication Endpoints</h3>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/auth/meta/authorize</span>
+                </div>
+                <p><strong>Description:</strong> Initiates Meta OAuth flow</p>
+                <p><strong>Response:</strong> Redirects to Meta authorization page</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/auth/meta/callback</span>
+                </div>
+                <p><strong>Description:</strong> Handles OAuth callback, exchanges code for tokens</p>
+                <p><strong>Query Params:</strong> <code>code</code>, <code>state</code></p>
+                <p><strong>Response:</strong> Stores encrypted tokens, returns success</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/auth/google/authorize</span>
+                </div>
+                <p><strong>Description:</strong> Initiates Google OAuth flow with required scopes</p>
+                <p><strong>Scopes:</strong> Analytics, Search Console, YouTube</p>
+            </div>
+
+            <h3>Account Management</h3>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/clients/:clientId/accounts</span>
+                </div>
+                <p><strong>Description:</strong> Lists all connected platform accounts for a client</p>
+                <p><strong>Response:</strong></p>
+                <pre><code>{
+  "accounts": [
+    {
+      "id": 123,
+      "platform": "FACEBOOK",
+      "isActive": true,
+      "connectedAt": "2025-12-01T10:00:00Z",
+      "lastSyncAt": "2026-01-10T08:00:00Z"
+    }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/clients/:clientId/accounts/assign</span>
+                </div>
+                <p><strong>Description:</strong> Assigns a platform account to a client and triggers initial 365-day
+                    sync</p>
+                <p><strong>Request Body:</strong></p>
+                <pre><code>{
+  "accountId": 123,
+  "platform": "YOUTUBE"
+}</code></pre>
+            </div>
+
+            <h3>Data Sync Endpoints</h3>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-post">POST</span>
+                    <span class="api-path">/sync/immediate/:platform/:accountId</span>
+                </div>
+                <p><strong>Description:</strong> Triggers immediate sync for a specific platform account</p>
+                <p><strong>Platforms:</strong> meta, youtube, google-ads, shopify, etc.</p>
+                <p><strong>Response:</strong> Sync job status and progress</p>
+            </div>
+
+            <h3>Unified Metrics API</h3>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/clients/:clientId/unified-metrics</span>
+                </div>
+                <p><strong>Description:</strong> Fetches normalized metrics across all platforms</p>
+                <p><strong>Query Parameters:</strong></p>
+                <ul>
+                    <li><code>platform</code> - Filter by platform (optional)</li>
+                    <li><code>metricKey</code> - Filter by metric type (optional)</li>
+                    <li><code>startDate</code> - Start date (YYYY-MM-DD)</li>
+                    <li><code>endDate</code> - End date (YYYY-MM-DD)</li>
+                    <li><code>page</code> - Pagination (default: 1)</li>
+                    <li><code>limit</code> - Results per page (default: 50)</li>
+                </ul>
+                <p><strong>Response:</strong></p>
+                <pre><code>{
+  "metrics": [
+    {
+      "platform": "YOUTUBE",
+      "metricKey": "views",
+      "metricValue": 15420,
+      "date": "2026-01-09",
+      "dimensionType": "channel",
+      "dimensionValue": null
+    },
+    {
+      "platform": "FACEBOOK",
+      "metricKey": "impressions",
+      "metricValue": 8932,
+      "date": "2026-01-09"
+    }
+  ],
+  "pagination": {
+    "total": 1250,
+    "page": 1,
+    "limit": 50
+  }
+}</code></pre>
+            </div>
+
+            <h3>Platform-Specific Endpoints</h3>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/meta/insights/:accountId</span>
+                </div>
+                <p><strong>Description:</strong> Fetches Meta-specific insights (non-normalized)</p>
+                <p><strong>Query Params:</strong> <code>startDate</code>, <code>endDate</code></p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/youtube/analytics/:accountId</span>
+                </div>
+                <p><strong>Description:</strong> Fetches YouTube analytics with video-level breakdown</p>
+                <p><strong>Query Params:</strong> <code>startDate</code>, <code>endDate</code>, <code>videoId</code>
+                    (optional)</p>
+            </div>
+
+            <div class="api-endpoint">
+                <div>
+                    <span class="api-method method-get">GET</span>
+                    <span class="api-path">/shopify/orders/:accountId</span>
+                </div>
+                <p><strong>Description:</strong> Fetches Shopify orders with filtering</p>
+                <p><strong>Query Params:</strong> <code>status</code>, <code>startDate</code>, <code>endDate</code></p>
+            </div>
+        </section>
+
+        <!-- Engineering Decisions -->
+        <section>
+            <h2>Engineering Decisions & Trade-offs</h2>
+
+            <h3>1. Token Storage: Encryption vs. Plain Text</h3>
+            <p><strong>Decision:</strong> Store tokens encrypted in database</p>
+            <p><strong>Rationale:</strong></p>
+            <ul class="feature-list">
+                <li>OAuth tokens grant full access to user accounts</li>
+                <li>Database breach would expose all connected accounts</li>
+                <li>Encryption adds minimal performance overhead</li>
+            </ul>
+            <p><strong>Implementation:</strong> AES-256 encryption with environment-based keys</p>
+
+            <h3>2. Sync Strategy: Real-time vs. Scheduled</h3>
+            <p><strong>Decision:</strong> Two-tier approach (initial backfill + hourly incremental)</p>
+            <p><strong>Rationale:</strong></p>
+            <ul class="feature-list">
+                <li>Real-time sync would hit rate limits quickly</li>
+                <li>Most analytics data doesn't need second-by-second updates</li>
+                <li>Hourly sync balances freshness with API quota management</li>
+                <li>Initial 365-day backfill provides historical context</li>
+            </ul>
+            <p><strong>Trade-off:</strong> Data can be up to 1 hour stale, but system is sustainable</p>
+
+            <h3>3. Data Normalization: Unified Schema vs. Platform-Specific</h3>
+            <p><strong>Decision:</strong> Hybrid approach - store both</p>
+            <p><strong>Rationale:</strong></p>
+            <ul class="feature-list">
+                <li>Platform-specific tables preserve all original data</li>
+                <li>Unified metrics enable cross-platform queries</li>
+                <li>Normalization happens asynchronously after raw data storage</li>
+            </ul>
+            <p><strong>Trade-off:</strong> Increased storage, but better query flexibility</p>
+
+            <h3>4. Failure Handling: Retry vs. Skip</h3>
+            <p><strong>Decision:</strong> Exponential backoff retry with max attempts</p>
+            <p><strong>Rationale:</strong></p>
+            <ul class="feature-list">
+                <li>Network issues and rate limits are temporary</li>
+                <li>Skipping would create data gaps</li>
+                <li>Exponential backoff prevents hammering APIs</li>
+            </ul>
+            <p><strong>Implementation:</strong> 3 retries with 2x backoff, then log and alert</p>
+        </section>
+
+
+        <!-- Scaling Considerations -->
+        <section>
+            <h2>Scaling Considerations</h2>
+
+            <h3>Current Bottlenecks</h3>
+            <ul class="feature-list">
+                <li><strong>API Rate Limits:</strong> Each platform has different limits (Meta: 200/hour, YouTube:
+                    10,000/day)</li>
+                <li><strong>Database Growth:</strong> Unified metrics table grows linearly with accounts and time</li>
+                <li><strong>Sync Job Concurrency:</strong> Single-threaded cron jobs can't handle 1000+ accounts</li>
+            </ul>
+
+            <h3>Scaling Solutions</h3>
+
+            <h4>1. Distributed Job Queue</h4>
+            <p><strong>Current:</strong> Cron jobs run sequentially</p>
+            <p><strong>Scale:</strong> Implement Bull/BullMQ with Redis for parallel processing</p>
+            <p><strong>Benefit:</strong> Process multiple accounts concurrently, respect rate limits per platform</p>
+
+            <h4>2. Database Partitioning</h4>
+            <p><strong>Current:</strong> Single unified metrics table</p>
+            <p><strong>Scale:</strong> Partition by date (monthly) or platform</p>
+            <p><strong>Benefit:</strong> Faster queries on recent data, easier archival of old data</p>
+
+            <h4>3. Caching Layer</h4>
+            <p><strong>Current:</strong> Direct database queries</p>
+            <p><strong>Scale:</strong> Redis cache for frequently accessed metrics</p>
+            <p><strong>Benefit:</strong> Reduce database load, faster API responses</p>
+
+            <h4>4. Rate Limit Management</h4>
+            <p><strong>Current:</strong> Simple retry logic</p>
+            <p><strong>Scale:</strong> Token bucket algorithm per platform with shared state</p>
+            <p><strong>Benefit:</strong> Maximize API usage without hitting limits</p>
+        </section>
+
+        <!-- Challenges & Solutions -->
+        <section>
+            <h2>Challenges Faced & Solutions</h2>
+
+            <div class="card" style="margin-bottom: 1rem;">
+                <h4>Challenge: YouTube Metrics Overwriting</h4>
+                <p><strong>Problem:</strong> Channel-level metrics were being overwritten by video-level metrics (which
+                    often had 0 values)</p>
+                <p><strong>Root Cause:</strong> Normalization function didn't distinguish between channel and video
+                    dimensions</p>
+                <p><strong>Solution:</strong> Added <code>dimensionType</code> and <code>dimensionValue</code> fields to
+                    separate channel totals from video-specific stats</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+                <h4>Challenge: Token Refresh Timing</h4>
+                <p><strong>Problem:</strong> Tokens would expire mid-sync, causing failures</p>
+                <p><strong>Solution:</strong> Check token expiry before each sync, refresh proactively if < 5 minutes
+                        remaining</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+                <h4>Challenge: Partial Sync Failures</h4>
+                <p><strong>Problem:</strong> If sync failed on day 200 of 365, had to restart from day 1</p>
+                <p><strong>Solution:</strong> Track sync progress with <code>lastSyncDate</code>, resume from last
+                    successful date</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+                <h4>Challenge: Inconsistent Date Formats</h4>
+                <p><strong>Problem:</strong> Each platform returns dates differently (ISO, Unix timestamps, YYYY-MM-DD)
+                </p>
+                <p><strong>Solution:</strong> Centralized date parsing utility that handles all formats, stores as ISO
+                    DateTime</p>
+            </div>
+        </section>
+
+        <!-- Future Enhancements -->
+        <section>
+            <h2>Future Enhancements</h2>
+            <ul class="feature-list">
+                <li><strong>Webhook Support:</strong> Real-time updates for platforms that support webhooks (Shopify,
+                    Meta)</li>
+                <li><strong>Data Export:</strong> CSV/Excel export of unified metrics</li>
+                <li><strong>Custom Alerts:</strong> Notify users when metrics cross thresholds</li>
+                <li><strong>Data Visualization:</strong> Built-in charts and dashboards</li>
+                <li><strong>More Platforms:</strong> Twitter, TikTok, Pinterest integrations</li>
+                <li><strong>Historical Comparison:</strong> Year-over-year, month-over-month analytics</li>
+            </ul>
+        </section>
+
+        <!-- Links -->
+        <section class="cta">
+            <h2>Explore the Code</h2>
+            <p>This project demonstrates production-ready backend engineering with real-world complexity.</p>
+            <div style="margin-top: 1.5rem;">
+                <a href="../projects.html" class="btn btn-secondary" style="margin-left: 0.5rem;">← Back to Projects</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Mohd Aqib Chauhan. Backend Engineer.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const toggleBtn = document.querySelector('.theme-toggle');
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Load saved theme
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const toggleBtn = document.querySelector('.theme-toggle');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (toggleBtn) {
+                toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            }
+        })();
+
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+
+</html>
