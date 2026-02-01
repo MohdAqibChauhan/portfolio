@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohd Aqib Chauhan - Backend Developer Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .resume-container {
+            max-width: 850px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 40px 50px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .header .title {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.95;
+            transition: opacity 0.3s;
+        }
+
+        .contact-info a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px 50px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Profile Summary */
+        .profile-summary {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        /* Key Achievements */
+        .achievements-list {
+            list-style: none;
+        }
+
+        .achievements-list li {
+            padding-left: 25px;
+            margin-bottom: 12px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .achievements-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Work Experience */
+        .job {
+            margin-bottom: 25px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .job-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .job-company {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .job-date {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .job-location {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .job-description {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .job-description li {
+            padding-left: 20px;
+            margin-bottom: 8px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .job-description li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        /* Skills */
+        .skills-category {
+            margin-bottom: 15px;
+        }
+
+        .skills-category-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .skills-list {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 15px;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .degree {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .education-date {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .institution {
+            font-size: 14px;
+            color: #2563eb;
+            margin-top: 2px;
+        }
+
+        .gpa {
+            font-size: 14px;
+            color: #444;
+            margin-top: 2px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .resume-container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .header {
+                background: #2563eb !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 25px;
+            }
+
+            .header {
+                padding: 30px 25px;
+            }
+
+            .job-header,
+            .education-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .job-date,
+            .education-date {
+                margin-top: 4px;
+            }
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">Portfolio</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a>
+                <a href="javascript:window.print()" style="color: #2563eb; font-weight: 600;">Print / Save PDF</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="resume-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>MOHD AQIB CHAUHAN</h1>
+            <div class="title">Backend Developer</div>
+            <div class="contact-info">
+                <span>📧 <a href="mailto:mohdaqibchauhan@gmail.com">mohdaqibchauhan@gmail.com</a></span>
+                <span>📱 +91-8097058132</span>
+                <span>💼 <a href="https://www.linkedin.com/in/mohd-aqib-chauhan-3ab62426a/"
+                        target="_blank">LinkedIn</a></span>
+                <span>💻 <a href="https://github.com/MohdAqibChauhan" target="_blank">GitHub</a></span>
+                <span>📍 India (Open to Remote)</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Profile Summary -->
+            <section class="section">
+                <h2 class="section-title">Profile Summary</h2>
+                <p class="profile-summary">
+                    Backend Developer specializing in complex OAuth integrations and scalable API design. Built an
+                    <strong>8-platform data aggregation system</strong> (Meta, Google, YouTube, Shopify) processing
+                    365-day historical syncs with 99.5% reliability. Expert in designing subscription systems,
+                    high-concurrency booking engines, and production-ready RESTful APIs using Node.js, TypeScript,
+                    and Prisma ORM. Passionate about clean architecture, scalable backend design, and delivering
+                    production-ready applications.
+                </p>
+            </section>
+
+            <!-- Key Achievements -->
+            <section class="section">
+                <h2 class="section-title">Key Achievements</h2>
+                <ul class="achievements-list">
+                    <li>Built <strong>8-platform OAuth integration system</strong> (Meta Ads, Google Ads, Google
+                        Analytics,
+                        Google Search Console, YouTube, TikTok, Shopify, LinkedIn) with automated token refresh and
+                        365-day historical data synchronization achieving 99.5% reliability</li>
+                    <li>Reduced API response times by <strong>45%</strong> (350ms → 190ms) through query optimization,
+                        strategic indexing, and Redis caching implementation</li>
+                    <li>Achieved <strong>zero double-booking incidents</strong> in high-concurrency booking system
+                        handling 500+ daily reservations across multiple vendors</li>
+                    <li>Maintained <strong>99.8% API uptime</strong> across all production systems with comprehensive
+                        error handling and monitoring</li>
+                </ul>
+            </section>
+
+            <!-- Work Experience -->
+            <section class="section">
+                <h2 class="section-title">Work Experience</h2>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-company">Greycats</div>
+                            <div class="job-title">Backend Developer</div>
+                        </div>
+                        <div class="job-date">May 2025 - Present (9 months)</div>
+                    </div>
+                    <div class="job-location">Analytics SaaS Platform | Remote</div>
+
+                    <ul class="job-description">
+                        <li><strong>Multi-Platform OAuth Integration:</strong> Architected and implemented 8-platform
+                            OAuth integration system aggregating analytics data from Meta Ads, Google Ads, Google
+                            Analytics,
+                            Google Search Console, YouTube, TikTok, Shopify, and LinkedIn with automated token refresh
+                            and 365-day historical sync processing 1M+ records daily</li>
+
+                        <li><strong>Subscription Management System:</strong> Designed tiered subscription model (Free,
+                            Silver, Gold, Platinum) with automated renewals, payment retry logic, and role-based access
+                            control achieving 95%+ retention rate</li>
+
+                        <li><strong>High-Concurrency Booking Engine:</strong> Developed vendor-service marketplace
+                            backend
+                            handling 500+ daily bookings with zero double-booking incidents using transaction-based
+                            locking and optimistic concurrency control</li>
+
+                        <li><strong>Travel Booking Platform:</strong> Built complete backend integrating 5+ third-party
+                            APIs (flight/hotel providers) with dynamic pricing engine processing 1000+ daily price
+                            checks
+                            and real-time availability updates achieving 99.2% uptime</li>
+
+                        <li><strong>Quick Commerce Backend:</strong> Enhanced grocery delivery backend serving 2000+
+                            daily
+                            orders, refactored 25+ API endpoints reducing response time by 45%, and implemented Redis
+                            caching cutting database latency by 55%</li>
+
+                        <li><strong>Stock Trading Platform:</strong> Improved backend data synchronization processing
+                            10,000+ daily market updates, fixed 8 critical performance bottlenecks reducing API failure
+                            rate from 2.5% to 0.2%, and implemented WebSocket for live price updates with <50ms
+                                latency</li>
+
+                        <li><strong>Referral & Coupon Systems:</strong> Built viral growth systems with fraud
+                            prevention,
+                            milestone tracking (5, 10, 25 referrals), and flexible discount validation driving 30% user
+                            acquisition growth</li>
+
+                        <li><strong>Background Job Orchestration:</strong> Implemented cron-based sync systems with
+                            retry
+                            mechanisms, rate limiting, and progress tracking achieving 99.5% success rate</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Technical Skills -->
+            <section class="section">
+                <h2 class="section-title">Technical Skills</h2>
+
+                <div class="skills-category">
+                    <div class="skills-category-title">Backend Development</div>
+                    <div class="skills-list">
+                        <strong>Languages:</strong> JavaScript (ES6+), TypeScript, Node.js<br>
+                        <strong>Frameworks:</strong> Express.js, Socket.io<br>
+                        <strong>APIs:</strong> RESTful API Design, OAuth 2.0, JWT Authentication, Third-Party API
+                        Integration
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <div class="skills-category-title">Databases & ORMs</div>
+                    <div class="skills-list">
+                        <strong>Relational:</strong> MySQL, PostgreSQL<br>
+                        <strong>NoSQL:</strong> MongoDB (Mongoose)<br>
+                        <strong>ORMs:</strong> Prisma, Mongoose<br>
+                        <strong>Caching:</strong> Redis
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <div class="skills-category-title">Development Tools & Practices</div>
+                    <div class="skills-list">
+                        <strong>API Testing:</strong> Postman, Apidog<br>
+                        <strong>Version Control:</strong> Git, GitHub<br>
+                        <strong>Cloud Deployment:</strong> Render, Vercel<br>
+                        <strong>Background Jobs:</strong> Cron Jobs, Task Scheduling<br>
+                        <strong>Testing:</strong> Integration Testing, API Testing, Unit Testing
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <div class="skills-category-title">Currently Learning</div>
+                    <div class="skills-list">
+                        Go (Golang), Kubernetes, GraphQL, Microservices Architecture, Docker, CI/CD Pipelines
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education -->
+            <section class="section">
+                <h2 class="section-title">Education</h2>
+
+                <div class="education-item">
+                    <div class="education-header">
+                        <div class="degree">Bachelor of Science in Information Technology</div>
+                        <div class="education-date">2022 - 2025</div>
+                    </div>
+                    <div class="institution">Vidyalankar School of Information Technology</div>
+                    <div class="gpa">GPA: 7.7/10</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-header">
+                        <div class="degree">Diploma in Commerce</div>
+                        <div class="education-date">2020 - 2022</div>
+                    </div>
+                    <div class="institution">Akbar Peerboy College</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Print to PDF functionality
+        window.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+
+</html>
